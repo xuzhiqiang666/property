@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.mapper.StudentMapper">
+
+    <!--删除操作-->
+    <delete id="delete" parameterType="java.util.ArrayList">
+        delete from t_student
+        <where>
+            <foreach collection="array" open="id in(" close=")" separator="," item="id">
+                #{id}
+            </foreach>
+        </where>
+    </delete>
+
+    <!--修改操作-->
+    <update id="update" parameterType="student">
+        update t_student set name=#{name},sex=#{sex},age=#{age},address=#{address} where id=#{id}
+    </update>
+
+    <!--插入操作-->
+    <insert id="save" parameterType="student">
+        insert into t_student values(#{id},#{name},#{sex},#{age},#{address})
+    </insert>
+
+    <!--查询全部-->
+    <select id="findAll" resultType="student">
+        select * from t_student
+    </select>
+
+    <!--查询单个-->
+    <select id="findOne" parameterType="int" resultType="student">
+        select * from t_student where id = #{id}
+    </select>
+
+</mapper>
